@@ -1,12 +1,92 @@
-- 👋 Hi, I’m @Tejas2429
-- 👀 I’m interested in ...
-- 🌱 I’m currently learning ...
-- 💞️ I’m looking to collaborate on ...
-- 📫 How to reach me ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
+// Shape interface
+interface Resizable {
+    void resize(double factor);
+}
 
-<!---
-Tejas2429/Tejas2429 is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
+// Abstract class representing a Shape
+abstract class Shape implements Resizable {
+    abstract double area();
+}
+
+// Circle class, inheriting from Shape
+class Circle extends Shape {
+    private double radius;
+
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+
+    @Override
+    double area() {
+        return Math.PI * radius * radius;
+    }
+
+    @Override
+    public void resize(double factor) {
+        radius *= factor;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+}
+
+// Rectangle class, inheriting from Shape
+class Rectangle extends Shape {
+    private double width;
+    private double height;
+
+    public Rectangle(double width, double height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    @Override
+    double area() {
+        return width * height;
+    }
+
+    @Override
+    public void resize(double factor) {
+        width *= factor;
+        height *= factor;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+}
+
+// Custom exception for invalid dimensions
+class InvalidDimensionException extends Exception {
+    public InvalidDimensionException(String message) {
+        super(message);
+    }
+}
+
+// Main class to demonstrate the program
+public class ShapeDemo {
+    public static void main(String[] args) {
+        try {
+            Circle circle = new Circle(5.0);
+            System.out.println("Circle Area: " + circle.area());
+
+            Rectangle rectangle = new Rectangle(4.0, 6.0);
+            System.out.println("Rectangle Area: " + rectangle.area());
+
+            // Resize shapes
+            circle.resize(2.0);
+            rectangle.resize(1.5);
+
+            System.out.println("Resized Circle Radius: " + circle.getRadius());
+            System.out.println("Resized Rectangle Width: " + rectangle.getWidth());
+            System.out.println("Resized Rectangle Height: " + rectangle.getHeight());
+        } catch (InvalidDimensionException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+}
